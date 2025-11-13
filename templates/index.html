@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock Visualizer</title>
+</head>
+<body>
+    <h1>Stock Data Visualizer</h1>
+    <form method="POST">
+        <label for="symbol">Choose a stock:</label>
+        <select name="symbol" id="symbol">
+            {% for symbol in stock_symbols %}
+            <option value="{{ symbol }}" {% if symbol == selected_symbol %}selected{% endif %}>{{ symbol }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Show Chart</button>
+    </form>
+
+    {% if chart %}
+    <h2>{{ selected_symbol }} Closing Prices</h2>
+    <embed type="image/svg+xml" src="{{ url_for('static', filename='chart.svg') }}" />
+    {% endif %}
+</body>
+</html>
